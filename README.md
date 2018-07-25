@@ -1,42 +1,33 @@
-This is small flask app. This app will show request headers and client ip
-address in JSON format.
+DevOps Challenge has been done. Please find below point to run app on container. And as I have already mentioned this code I have have built on Docker, not on Vagrant file. I have some laptop issue thats why I mentioned with you earlier. 
 
-## Installation
+I have uploaded project on github. You can download the repo from below URL and run commands to make it UP and running on port no 5000. 
 
-Clone the repository, then install required python modules (see requirements.txt).
-Then, you can run this app using this command
+GIT URL: 
 
-```
-./app.py
-```
+Command:
 
-It will listen on all interface on port 5000.
+# docker-compose up -d
 
-Note: This method is not suitable for production as it doesn't scale well and 
-by default serves only one request at a time. Read Flask documentation for 
-[deployment in production](http://flask.pocoo.org/docs/0.12/deploying/)
+Output
 
-## Example output
+[root@ip-172-31-23-44 dev]# curl localhost:5000
+{"headers":{"Accept":"*/*","Host":"localhost:5000","User-Agent":"curl/7.55.1"},"origin":"172.18.0.1"}
+[root@ip-172-31-23-44 dev]#[root@ip-172-31-23-44 dev]# curl localhost:5000
+{"headers":{"Accept":"*/*","Host":"localhost:5000","User-Agent":"curl/7.55.1"},"origin":"172.18.0.1"}
+[root@ip-172-31-23-44 dev]#
 
-Using curl, assuming app listen on ip address 10.10.10.20. and curl running on
-host with ip address 10.10.10.1
 
-```
-curl http://10.10.10.20:5000/
-```
 
-output
+For App should be restarted automatically, I have set restart policy if app is crashed or even host system restarted. The container will automatically start by itself. We can explicitly stop it so that it wont run after reboot the host. 
 
-```
-{
-  "headers": {
-    "Accept": "*/*",
-    "Content-Length": "",
-    "Content-Type": "",
-    "Host": "10.10.10.20:5000",
-    "User-Agent": "curl/7.51.0"
-  },
-  "origin": "10.10.10.1"
-}
-```
-# singapore
+For Logging, the roation of log is enabled and can be found under below path in json format.
+
+[root@ip-172-31-23-44 dev]# cat /var/lib/docker/containers/64fac9342fbf0d4aba5dc4fa61d5a13a409f26d1dd4b6ffd0c67152d4c077ab0/64fac9342fbf0d4aba5dc4fa61d5a13a409f26d1dd4b6ffd0c67152d4c077ab0-json.log
+{"log":" * Environment: production\n","stream":"stdout","time":"2018-07-25T19:04:07.428309798Z"}
+{"log":"   WARNING: Do not use the development server in a production environment.\n","stream":"stdout","time":"2018-07-25T19:04:07.428424482Z"}
+{"log":"   Use a production WSGI server instead.\n","stream":"stdout","time":"2018-07-25T19:04:07.42843253Z"}
+{"log":" * Debug mode: off\n","stream":"stdout","time":"2018-07-25T19:04:07.428497672Z"}
+{"log":" * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)\n","stream":"stderr","time":"2018-07-25T19:04:07.429981175Z"}
+{"log":"172.18.0.1 - - [25/Jul/2018 19:04:18] \"GET / HTTP/1.1\" 200 -\n","stream":"stderr","time":"2018-07-25T19:04:18.4228346Z"}
+[root@ip-172-31-23-44 dev]#
+
