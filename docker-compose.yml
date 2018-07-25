@@ -1,0 +1,9 @@
+version: '2.2'
+services:
+###########
+ APP:
+     image: manukoli1986/devops-challenge
+     container_name: app
+     restart: unless-stopped
+     ports:
+       - 5000:5000
